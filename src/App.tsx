@@ -5,12 +5,13 @@ import { Navbar } from './components/Navbar';
 import { DashboardPage } from './pages/DashboardPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { AdminPage } from './pages/AdminPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 
 const AppContent: React.FC = () => {
   const { user, isLoading } = useAuth();
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'history' | 'profile'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'history' | 'profile' | 'admin'>('dashboard');
   const [authView, setAuthView] = useState<'login' | 'register'>('login');
 
   if (isLoading) {
@@ -39,6 +40,7 @@ const AppContent: React.FC = () => {
         {currentTab === 'dashboard' && <DashboardPage />}
         {currentTab === 'history' && <HistoryPage />}
         {currentTab === 'profile' && <ProfilePage />}
+        {currentTab === 'admin' && <AdminPage />}
       </main>
     </div>
   );

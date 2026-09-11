@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { Moon, Sun, LogOut, LayoutDashboard, History, User as UserIcon, Menu, X } from 'lucide-react';
+import { Moon, Sun, LogOut, LayoutDashboard, History, User as UserIcon, Shield, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
-  currentTab: 'dashboard' | 'history' | 'profile';
-  setCurrentTab: (tab: 'dashboard' | 'history' | 'profile') => void;
+  currentTab: 'dashboard' | 'history' | 'profile' | 'admin';
+  setCurrentTab: (tab: 'dashboard' | 'history' | 'profile' | 'admin') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => {
@@ -13,7 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (tab: 'dashboard' | 'history' | 'profile') => {
+  const handleNavClick = (tab: 'dashboard' | 'history' | 'profile' | 'admin') => {
     setCurrentTab(tab);
     setMobileMenuOpen(false);
   };
@@ -70,6 +70,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
           >
             <UserIcon className="w-4 h-4" />
             <span>{user?.username || 'Profile'}</span>
+          </button>
+
+          <button
+            onClick={() => handleNavClick('admin')}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              currentTab === 'admin'
+                ? 'bg-light-primary/10 text-light-primary dark:bg-dark-primary/15 dark:text-dark-primary font-semibold'
+                : 'text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text'
+            }`}
+          >
+            <Shield className="w-4 h-4" />
+            Admin
           </button>
 
           <div className="h-4 w-[1px] mx-2 bg-light-border dark:bg-dark-border" />
@@ -154,6 +166,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
           >
             <UserIcon className="w-4 h-4" />
             Profile ({user?.username})
+          </button>
+          <button
+            onClick={() => handleNavClick('admin')}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${
+              currentTab === 'admin'
+                ? 'bg-light-primary/10 text-light-primary dark:bg-dark-primary/15 dark:text-dark-primary font-semibold'
+                : 'text-light-text-secondary dark:text-dark-text-secondary'
+            }`}
+          >
+            <Shield className="w-4 h-4" />
+            Admin Panel
           </button>
           <div className="pt-2 border-t border-light-border dark:border-dark-border">
             <button
